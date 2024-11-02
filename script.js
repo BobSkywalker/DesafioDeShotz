@@ -3,21 +3,21 @@ let objetos = [
     titulo: "Roblox",
     data: "01/11/2024",
     descricao: "qualquercoisa",
-    prioridade: "Alta",
+    prioridade: "alta",
     completado: false,
   },
   {
     titulo: "Minecraft",
     data: "01/12/2024",
     descricao: "qualquercoisa123",
-    prioridade: "Media",
+    prioridade: "media",
     completado: false,
   },
   {
     titulo: "CSGO",
-    data: "03/12/2024",
+    data: '01/12/2024',
     descricao: "qualquercoisa123412",
-    prioridade: "Baixa",
+    prioridade: "baixa",
     completado: true,
   },
 ];
@@ -32,7 +32,6 @@ const data = document.querySelector("#data");
 const prioridade = document.querySelector("#prioridade");
 
 function registrarDados() {
-
   const valorTitulo = titulo.value;
   const valorDescricao = descricao.value;
   const valorData = data.value;
@@ -51,18 +50,26 @@ function registrarDados() {
 
   if (!tituloExiste.length > 0) {
     objetos.push(dado);
+  } else {
+    objetos = objetos.map((item) => {
+      if (valorTitulo === item.titulo) {
+        return dado;
+      }
+      return item;
+    });
+  }
+    renderizarContainer();
     renderizarContainer();
   }
-}
 
 function renderizarCard(dado) {
   const checkBox = document.createElement("input");
-  checkBox.classList.add('Checkbox')
+  checkBox.classList.add("Checkbox");
   checkBox.checked = dado.completado;
   checkBox.type = "checkbox";
-  checkBox.addEventListener('click', () => {
-    atualizarCheckbox(dado.titulo)
-  })
+  checkBox.addEventListener("click", () => {
+    atualizarCheckbox(dado.titulo);
+  });
 
   const deletar = document.createElement("button");
   deletar.classList.add("deletar");
@@ -72,12 +79,12 @@ function renderizarCard(dado) {
     deletarVitor(dado.titulo);
   });
 
-  const editar = document.createElement('button')
-  editar.classList.add('editar')
-  editar.innerHTML = 'Editar'
-  editar.addEventListener('click', () => {
-    editarVitor(dado)
-  })
+  const editar = document.createElement("button");
+  editar.classList.add("editar");
+  editar.innerHTML = "Editar";
+  editar.addEventListener("click", () => {
+    editarVitor(dado);
+  });
 
   const card = document.createElement("div");
   card.classList.add("card");
@@ -129,22 +136,28 @@ function deletarVitor(titulo) {
   renderizarContainer();
 }
 
-function atualizarCheckbox(titulo){
-    objetos.map((item) => {
-        if (item.titulo == titulo){
-            return {...item, completado: !item.completado}
-        }
-        return item
-    })
+function atualizarCheckbox(titulo) {
+  objetos = objetos.map((item) => {
+    if (item.titulo == titulo) {
+      return { ...item, completado: !item.completado };
+    }
+    return item;
+  });
 }
 
-function editarVitor(dado){
-    titulo.value = dado.titulo
-    descricao.value = dado.descricao 
-    data.value = dado.data
-    prioridade.value = dado.prioridade
+function editarVitor(dado) {
+  titulo.value = dado.titulo;
+  descricao.value = dado.descricao;
+  data.value = formatarData(dado.data)
+  prioridade.value = dado.prioridade;
 }
 
+// yyyy-MM-dd
+
+function formatarData(data) {
+  const formatoIso = new Date(data).toISOString()
+  return formatoIso.split('T')[0]
+}
 
 // Apend adiciona um elemento em outro
 

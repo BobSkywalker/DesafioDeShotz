@@ -163,6 +163,7 @@ header {
 }
 .cardPrioridade {
   color: red;
+  text-transform: capitalize;
 }
 p.cardDescricao{
   font-family: Arial, Helvetica, sans-serif;
