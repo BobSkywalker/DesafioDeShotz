@@ -29,7 +29,26 @@ botao.addEventListener("click", registrarDados);
 const titulo = document.querySelector("#titulo");
 const descricao = document.querySelector("#descricao");
 const data = document.querySelector("#data");
+  data.min = dataAtualizada()
 const prioridade = document.querySelector("#prioridade");
+const forme = document.querySelector('#forme')
+forme.addEventListener('submit', (evento) => {
+  evento.preventDefault()
+})
+
+function dataAtualizada() {
+  const today = new Date()
+  let dia = today.getDate()
+  if (dia < 10) {
+    dia = `0${dia}`
+  }
+  let mes = today.getMonth() + 1
+  if (mes < 10) {
+    mes = `0${dia}`
+  }
+  const ano = today.getFullYear()
+  return ano + '-' + mes + '-' + dia;
+}
 
 function registrarDados() {
   const valorTitulo = titulo.value;
