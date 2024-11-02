@@ -57,6 +57,7 @@ function registrarDados() {
 
 function renderizarCard(dado) {
   const checkBox = document.createElement("input");
+  checkBox.classList.add('Checkbox')
   checkBox.checked = dado.completado;
   checkBox.type = "checkbox";
   checkBox.addEventListener('click', () => {
